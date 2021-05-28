@@ -1,8 +1,8 @@
 <script>
-  import ElCollapseTransition from 'element-ui/src/transitions/collapse-transition';
+  import ElCollapseTransition from 'hzc-element-ui/src/transitions/collapse-transition';
   import menuMixin from './menu-mixin';
-  import Emitter from 'element-ui/src/mixins/emitter';
-  import Popper from 'element-ui/src/utils/vue-popper';
+  import Emitter from 'hzc-element-ui/src/mixins/emitter';
+  import Popper from 'hzc-element-ui/src/utils/vue-popper';
 
   const poperMixins = {
     props: {
@@ -270,45 +270,10 @@
         titleStyle,
         backgroundColor,
         rootMenu,
-        currentPlacement,
-        menuTransitionName,
-        mode,
         disabled,
-        popperClass,
         $slots,
         isFirstLevel
       } = this;
-
-      const popupMenu = (
-        <transition name={menuTransitionName}>
-          <div
-            ref="menu"
-            v-show={opened}
-            class={[`el-menu--${mode}`, popperClass]}
-            on-mouseenter={($event) => this.handleMouseenter($event, 100)}
-            on-mouseleave={() => this.handleMouseleave(true)}
-            on-focus={($event) => this.handleMouseenter($event, 100)}>
-            <ul
-              role="menu"
-              class={['el-menu el-menu--popup', `el-menu--popup-${currentPlacement}`]}
-              style={{ backgroundColor: rootMenu.backgroundColor || '' }}>
-              {$slots.default}
-            </ul>
-          </div>
-        </transition>
-      );
-
-      const inlineMenu = (
-        <el-collapse-transition>
-          <ul
-            role="menu"
-            class="el-menu el-menu--inline"
-            v-show={opened}
-            style={{ backgroundColor: rootMenu.backgroundColor || '' }}>
-            {$slots.default}
-          </ul>
-        </el-collapse-transition>
-      );
 
       const submenuTitleIcon = (
         rootMenu.mode === 'horizontal' && isFirstLevel ||
@@ -341,7 +306,6 @@
             {$slots.title}
             <i class={[ 'el-submenu__icon-arrow', submenuTitleIcon ]}></i>
           </div>
-          {this.isMenuPopup ? popupMenu : inlineMenu}
         </li>
       );
     }
